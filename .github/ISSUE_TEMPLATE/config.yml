@@ -1,0 +1,12 @@
+# Ref: https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
+blank_issues_enabled: true # default
+contact_links:
+  -name: 🤷💻 Documentation
+    url: https://brainglobe.github.io/new-website/
+    about: Please see here for information about how to install and use BrainGlobe software.
+  - name: 🤷💻 [Old] Documentation
+    url: https://docs.brainglobe.info/
+    about: Please see here for information about how to install and use BrainGlobe software.
+  - name: 🤷💻 image.sc forum
+    url: https://forum.image.sc/tag/brainglobe
+    about: Please ask general questions (how do I, what is this? etc.) on the image.sc forum. Tagging `brainglobe` and the name of the software (e.g. `cellfinder`).
