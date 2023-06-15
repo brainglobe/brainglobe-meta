@@ -21,7 +21,15 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 
-
+dependencies = [
+  "bg-atlasapi",
+  "cellfinder",
+  "cellfinder-core",
+  "brainreg",
+  "bg-space",
+  "morphapi",
+  "brainrender",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -34,6 +42,13 @@ dev = [
   "pre-commit",
   "ruff",
   "setuptools_scm",
+]
+napari = [
+  "napari[pyside2]",
+  "cellfinder-napari",
+  "brainreg-napari-io",
+  "brainreg-napari",
+  "brainreg-segment>=0.0.2",
 ]
 
 [build-system]

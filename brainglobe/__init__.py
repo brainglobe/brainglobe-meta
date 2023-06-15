@@ -5,3 +5,5 @@ try:
 except PackageNotFoundError:
     # package is not installed
     pass
+
+# Expose tools under the brainglobe namespace
