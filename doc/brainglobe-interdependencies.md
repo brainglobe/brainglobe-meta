@@ -27,7 +27,7 @@ This package implements the cell detection algorithm from Tyson, Rousseau & Nied
 
 [Repository](https://github.com/brainglobe/imio)
 
-The aim of imio is to be a lightweight image loading library for the file types supported by cellfinder, and brainreg.
+The aim of `imio` is to be a lightweight image loading library for the file types supported by cellfinder, and brainreg.
 
 ----
 ----
@@ -46,6 +46,8 @@ Dependencies:
 
 ## `bg-atlasgen`
 
+**Not on PyPI, intended to be locally installed to generate data to add a new BrainGlobe atlas.**
+
 [Repository](https://github.com/brainglobe/bg-atlasgen)
 
 Utilities and scripts for the generation of cleaned-up data for the bg-atlasapi module.
@@ -55,6 +57,8 @@ Dependencies:
 - [`imio`](#imio)
 
 ## `brainglobe-napari`
+
+**Work in progress**
 
 [Repository](https://github.com/brainglobe/brainglobe-napari)
 
@@ -120,14 +124,15 @@ Dependencies:
 ----
 ----
 
-## `bg-heatmaps`
+## `bgheatmap`
 
 [Repository](https://github.com/brainglobe/bg-heatmaps)
+
+Rendering heatmaps with brainrender. Note that repository name differs from package name on `PyPI`.
 
 Dependencies:
 - [`brainrender`](#brainrender)
 
-Rendering heatmaps with brainrender.
 
 ## `brainreg`
 
