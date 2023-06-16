@@ -6,7 +6,7 @@ on:
     branches:
       - 'main'
     tags:
-      - 'v*'
+      - 'v**'
   # Run on all pull-requests
   pull_request:
   # Allow workflow dispatch from GitHub
