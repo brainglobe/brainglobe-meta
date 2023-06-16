@@ -1,4 +1,4 @@
-name: tests
+name: Test (and Deploy on tag)
 
 on:
   # Only run on pushes to main
@@ -9,6 +9,13 @@ on:
   pull_request:
   # Allow workflow dispatch from GitHub
   workflow_dispatch:
+
+concurrency:
+  # Cancel this workflow if it is running,
+  # and then changes are applied on top of the HEAD of the branch,
+  # triggering another run of the workflow
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   linting:
