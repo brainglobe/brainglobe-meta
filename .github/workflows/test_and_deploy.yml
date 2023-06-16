@@ -1,12 +1,14 @@
 name: tests
 
 on:
+  # Only run on pushes to main
   push:
     branches:
-      - '*'
-    tags:
-      - '*'
+      - 'main'
+  # Run on all pull-requests
   pull_request:
+  # Allow workflow dispatch from GitHub
+  workflow_dispatch:
 
 jobs:
   linting:
