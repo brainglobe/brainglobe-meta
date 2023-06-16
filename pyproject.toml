@@ -27,16 +27,13 @@ dependencies = [
   "cellfinder-core>=0.3",
   "imio",
   "bg-atlasapi>=1.0.0",
-  # "bg-atlasgen",
-  # "brainglobe-napari",
+  # "bg-atlasgen", [WIP]
+  # "brainglobe-napari", [WIP]
   "brainglobe-napari-io",
   "morphapi>=0.1.3.0",
   "cellfinder-napari",
   "brainreg-segment>=0.0.2",
-  "brainrender",
-  "bgheatmap",
   "brainreg",
-  "cellfinder-visualize",
   "brainreg-napari",
   "cellfinder"
 ]
