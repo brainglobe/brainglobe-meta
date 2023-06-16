@@ -1,8 +1,10 @@
 include LICENSE
 include README.md
-exclude CONTRIBUTING.md CODE_OF_CONDUCT.md
 
-recursive-include tests/*.py
+exclude CONTRIBUTING.md CODE_OF_CONDUCT.md
+exclude *.yaml
+
+recursive-include tests *.py
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
