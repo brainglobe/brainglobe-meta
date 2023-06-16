@@ -100,16 +100,6 @@ Dependencies:
 - [`imio`](#imio)
 - `napari`
 
-## `brainrender`
-
-[Repository](https://github.com/brainglobe/brainrender)
-
-`brainrender` is a python package for the visualization of three dimensional neuro-anatomical data. It can be used to render data from publicly available data set (e.g. Allen Brain atlas) as well as user generated experimental data. The goal of brainrender is to facilitate the exploration and dissemination of neuro-anatomical data by providing a user-friendly platform to create high-quality 3D renderings.
-
-Dependencies:
-- [`morphapi`](#morphapi) >=0.1.3.0
-- [`bg-atlasapi`](#bg-atlasapi) >=1.0.0
-
 ## `cellfinder-napari`
 
 [Repository](https://github.com/brainglobe/cellfinder-napari)
@@ -123,16 +113,6 @@ Dependencies:
 
 ----
 ----
-
-## `bgheatmap`
-
-[Repository](https://github.com/brainglobe/bg-heatmaps)
-
-Rendering heatmaps with brainrender. Note that repository name differs from package name on `PyPI`.
-
-Dependencies:
-- [`brainrender`](#brainrender)
-
 
 ## `brainreg`
 
@@ -150,15 +130,6 @@ In which case, the only dependencies are:
 - [brainreg-segment](#brainreg-segment) >=0.0.2
 
 since the packages above are included in these packages.
-
-## `cellfinder-visualize`
-
-[Repository](https://github.com/brainglobe/cellfinder-visualize)
-
-`cellfinder-visualize` is a tool for post-cellfinder data visualisation and analysis.
-
-Dependencies:
-- [`brainrender`](#brainrender)
 
 ----
 ----
