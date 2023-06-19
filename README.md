@@ -1,3 +1,7 @@
+[![PyPI version](https://badge.fury.io/py/brainglobe.svg)](https://badge.fury.io/py/brainglobe)
+[![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fbrainglobe.info)](https://brainglobe.info)
+[![Twitter](https://img.shields.io/twitter/follow/brain_globe?style=social)](https://twitter.com/brain_globe)
+
 # brainglobe
 
 The BrainGlobe Initiative exists to facilitate the development of interoperable
@@ -22,3 +26,11 @@ The BrainGlobe project is generously supported by the Sainsbury Wellcome Centre 
 <img src='https://brainglobe.info/images/TUM.png' width="150">
 <img src='https://brainglobe.info/images/CZI.png' width="150">
 </p>
+
+## Installation
+
+The `brainglobe` package can be installed from [PyPI](https://pypi.org/project/brainglobe/) into a Python environment by running
+```python
+pip install brainglobe
+```
+Alternatively, you can download the source from [PyPI here](https://pypi.org/project/brainglobe/#files).
