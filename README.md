@@ -19,13 +19,11 @@ We have three aims:
 - Build a community of neuroscientists and developers to share knowledge, build software and engage
   with the scientific, and open-source community (e.g. by organising hackathons).
 
-The BrainGlobe project is generously supported by the Sainsbury Wellcome Centre and the Institute of Neuroscience, Technical University of Munich, with funding from the Chan Zuckerberg Initiative, Wellcome, the Gatsby Charitable Foundation and the Munich Cluster for Systems Neurology - Synergy.
+### [**Funding**](https://brainglobe.info/funders.html#funders) Information
 
-<p>
-<img src='https://brainglobe.info/images/SWC.png' width="150">
-<img src='https://brainglobe.info/images/TUM.png' width="150">
-<img src='https://brainglobe.info/images/CZI.png' width="150">
-</p>
+The BrainGlobe project is only possible due to grant funding and the generous support of host institutions, whose information [can be found on this website](https://brainglobe.info/funders.html#funders).
+
+---
 
 ## Installation
 
@@ -34,3 +32,8 @@ The `brainglobe` package can be installed from [PyPI](https://pypi.org/project/b
 pip install brainglobe
 ```
 Alternatively, you can download the source from [PyPI here](https://pypi.org/project/brainglobe/#files).
+
+## Contributing
+
+**Contributors to BrainGlobe are absolutely encouraged**, whether to fix a bug, develop a new feature, or add a new atlas.
+If you would like to contribute, please take a look at our [developer documentation](https://brainglobe.info/developers/index.html).
