@@ -34,3 +34,8 @@ The `brainglobe` package can be installed from [PyPI](https://pypi.org/project/b
 pip install brainglobe
 ```
 Alternatively, you can download the source from [PyPI here](https://pypi.org/project/brainglobe/#files).
+
+## Contributing
+
+**Contributors to BrainGlobe are absolutely encouraged**, whether to fix a bug, develop a new feature, or add a new atlas.
+If you would like to contribute, please take a look at our [developer documentation](https://brainglobe.github.io/new-website/developers/index.html).
