@@ -8,7 +8,6 @@ EXPOSED_TOOLS = [
     "bg_space",
     "brainreg",
     "brainreg_segment",
-    "brainrender",
     "cellfinder_core",
     "morphapi",
 ]

@@ -11,6 +11,5 @@ import bg_atlasapi
 import bg_space
 import brainreg
 import brainreg_segment
-import brainrender
 import cellfinder_core
 import morphapi
