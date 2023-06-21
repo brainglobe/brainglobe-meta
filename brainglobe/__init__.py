@@ -21,9 +21,9 @@ try:
     import morphapi
 except ImportError:
     _MORPHAPI_INSTALLED = False
-# cellfinder - not exposed, but still check
+# cellfinder - not exposed, but still check presence
 _CELLFINDER_INSTALLED = True
 try:
-    import cellfinder
-except ImportError:
+    version("cellfinder")
+except PackageNotFoundError:
     _CELLFINDER_INSTALLED = False
