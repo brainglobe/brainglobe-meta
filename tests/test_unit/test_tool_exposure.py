@@ -1,7 +1,5 @@
 import inspect
 
-import pytest
-
 import brainglobe as bg
 
 # Tools that will be exposed in the brainglobe module/namespace
@@ -41,10 +39,7 @@ def test_tool_exposure() -> None:
         assert not hasattr(bg, "morphapi")
 
     # cellfinder - should not be exposed if installed
-    if not bg._CELLFINDER_INSTALLED:
-        with pytest.raises(ImportError):
-            pass
-    else:
+    if bg._CELLFINDER_INSTALLED:
         assert not hasattr(
             bg, "cellfinder"
         ), "brainglobe.cellfinder is exposed"
