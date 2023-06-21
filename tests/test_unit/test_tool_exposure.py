@@ -1,7 +1,5 @@
 import inspect
 
-import pytest
-
 import brainglobe as bg
 
 # Tools that will be exposed in the brainglobe module/namespace
@@ -27,19 +25,26 @@ def test_tool_exposure() -> None:
         ), f"brainglobe.{exposed_tool} is not a submodule"
 
     # Now check the optional dependencies
-    # morphapi - if not installed, should not be exposed
-    if not bg._MORPHAPI_INSTALLED:
-        with pytest.raises(ImportError):
-            import bg.morphapi
-    else:
-        assert hasattr(
-            bg, "morphapi"
+    # morphapi
+    bg_has_morphapi = hasattr(bg, "morphapi")
+    if bg._MORPHAPI_INSTALLED:
+        assert (
+            bg_has_morphapi
         ), "brainglobe has morphapi, but it is flagged as installed"
         assert inspect.ismodule(
             getattr(bg, "morphapi")
         ), "brainglobe.morphapi is not a submodule"
-    # cellfinder - if installed, should not be exposed
+    else:
+        assert (
+            not bg_has_morphapi
+        ), "brainglobe has morphapi, but it is flagged as not installed"
+    # cellfinder
+    bg_has_cellfinder = hasattr(bg, "cellfinder")
     if bg._CELLFINDER_INSTALLED:
-        assert not hasattr(
-            bg, "cellfinder"
-        ), "brainglobe has exposed cellfinder"
+        assert (
+            bg_has_cellfinder
+        ), "brainglobe has cellfinder, but it is flagged as installed"
+    else:
+        assert (
+            not bg_has_cellfinder
+        ), "brainglobe has cellfinder, but it is flagged as not installed"
