@@ -28,9 +28,17 @@ The BrainGlobe project is only possible due to grant funding and the generous su
 ## Installation
 
 The `brainglobe` package can be installed from [PyPI](https://pypi.org/project/brainglobe/) into a Python environment by running
-```python
+```sh
 pip install brainglobe
 ```
+
+If you want to install the additional packages `morphapi` and `cellfinder`, you can specify them as optional dependencies:
+```sh
+pip install brainglobe[morphapi] # Include morphapi
+pip install brainglobe[cellfinder] # Include cellfinder
+pip install brainglobe[morphapi,cellfinder] # Include both morphapi and cellfinder
+```
+
 Alternatively, you can download the source from [PyPI here](https://pypi.org/project/brainglobe/#files).
 
 ## Contributing
