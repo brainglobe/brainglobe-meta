@@ -27,6 +27,9 @@ The BrainGlobe project is only possible due to grant funding and the generous su
 
 ## Installation
 
+We recommend users install into a fresh virtual environment using `pip`; since this will resolve all complex dependencies (like `tensorflow`) automatically, across all operating systems and (compatible) Python versions.
+
+### **Recommended**: via `pip`
 The `brainglobe` package can be installed from [PyPI](https://pypi.org/project/brainglobe/) into a Python environment by running
 ```sh
 pip install brainglobe
@@ -40,6 +43,21 @@ pip install brainglobe[morphapi,cellfinder] # Include both morphapi and cellfind
 ```
 
 Alternatively, you can download the source from [PyPI here](https://pypi.org/project/brainglobe/#files).
+
+### **Alternatives**: via `conda`
+The brainglobe package without the `morphapi` and `cellfinder` tools can also be installed from [`conda-forge`](FIXME).
+
+For Linux and MacOS users, running
+```sh
+conda install -c conda-forge brainglobe
+```
+in the appropriate virtual environment is all that needs to be done.
+
+Windows users will have to manually install a compatible version of `tensorflow` into their environment, before running the `conda install` command above.
+This is because `tensorflow` versions newer than `1.14.0` are not provided via `conda` channels, and `cellfinder-core` (one of the brainglobe tools) requires a version between `2.5.0` and `2.11.1`.
+See [this issue on GitHub for more details](https://github.com/conda-forge/cellfinder-core-feedstock/issues/13).
+
+---
 
 ## Contributing
 
