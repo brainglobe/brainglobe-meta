@@ -11,19 +11,20 @@ import bg_atlasapi
 import bg_space
 import brainreg
 import brainreg_segment
-import cellfinder_core
 
-# Determine if optional dependencies were installed,
-# and expose if necessary.
+# Expose tools that may not be present
+# if a conda install was performed
+
 # morphapi
 _MORPHAPI_INSTALLED = True
 try:
     import morphapi
 except ImportError:
     _MORPHAPI_INSTALLED = False
-# cellfinder - not exposed, but still check
+# cellfinder, and cellfinder_core
 _CELLFINDER_INSTALLED = True
 try:
     import cellfinder
+    import cellfinder_core
 except ImportError:
     _CELLFINDER_INSTALLED = False

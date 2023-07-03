@@ -19,26 +19,27 @@ We have three aims:
 - Build a community of neuroscientists and developers to share knowledge, build software and engage
   with the scientific, and open-source community (e.g. by organising hackathons).
 
-## This Package Provides:
+### [**Funding**](https://brainglobe.info/funders.html#funders) Information
+
+The BrainGlobe project is only possible due to grant funding and the generous support of host institutions, whose information [can be found on this website](https://brainglobe.info/funders.html#funders).
+
+---
+
+## BrainGlobe tools
 
 This package provides all BrainGlobe tools in one place, requested [through a single command](#installation).
 
 You can read more about the individual tools on the [documentation website](https://brainglobe.info/documentation/index.html).
 Currently included packages, and whether they come with the `pip` and `conda-forge` installs are listed below:
-|               Package                |  `pip`   | `conda`  | How to access |                               Documentation                               |
-| :----------------------------------: | :------: | :------: | :-----------: | :-----------------------------------------------------------------------: |
-| BrainGlobe Atlas API (`bg-atlasapi`) | &#x2611; | &#x2611; |               |   [Site](https://brainglobe.info/documentation/bg-atlasapi/index.html)    |
-|              `bg-space`              | &#x2611; | &#x2611; |               |     [Site](https://brainglobe.info/documentation/bg-space/index.html)     |
-|              `brainreg`              | &#x2611; | &#x2611; |               |     [Site](https://brainglobe.info/documentation/brainreg/index.html)     |
-|          `brainreg-segment`          | &#x2611; | &#x2611; |               | [Site](https://brainglobe.info/documentation/brainreg-segment/index.html) |
-|            `brainrender`             |          |          |               |   [Site](https://brainglobe.info/documentation/brainrender/index.html)    |
-|             `cellfinder`             | &#x2611; |          |               |    [Site](https://brainglobe.info/documentation/cellfinder/index.html)    |
-|              `morphapi`              | &#x2611; |          |               |     [Site](https://brainglobe.info/documentation/morphapi/index.html)     |
-
-
-### [**Funding**](https://brainglobe.info/funders.html#funders) Information
-
-The BrainGlobe project is only possible due to grant funding and the generous support of host institutions, whose information [can be found on this website](https://brainglobe.info/funders.html#funders).
+|       Package        |  `pip`   | `conda`  |    `from brainglobe import`     |                               Documentation                               |
+| :------------------: | :------: | :------: | :-----------------------------: | :-----------------------------------------------------------------------: |
+| BrainGlobe Atlas API | &#x2611; | &#x2611; |          `bg_atlasapi`          |   [Site](https://brainglobe.info/documentation/bg-atlasapi/index.html)    |
+|      `bg-space`      | &#x2611; | &#x2611; |           `bg-space`            |     [Site](https://brainglobe.info/documentation/bg-space/index.html)     |
+|      `brainreg`      | &#x2611; | &#x2611; |           `brainreg`            |     [Site](https://brainglobe.info/documentation/brainreg/index.html)     |
+|  `brainreg-segment`  | &#x2611; | &#x2611; |       `brainreg_segment`        | [Site](https://brainglobe.info/documentation/brainreg-segment/index.html) |
+|    `brainrender`     |          |          |                                 |   [Site](https://brainglobe.info/documentation/brainrender/index.html)    |
+|     `cellfinder`     | &#x2611; | Pending  | `cellfinder_core`, `cellfinder` |    [Site](https://brainglobe.info/documentation/cellfinder/index.html)    |
+|      `morphapi`      | &#x2611; | Pending  |           `morphapi`            |     [Site](https://brainglobe.info/documentation/morphapi/index.html)     |
 
 ---
 
