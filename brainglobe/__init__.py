@@ -24,7 +24,6 @@ except ImportError:
 # cellfinder, and cellfinder_core
 _CELLFINDER_INSTALLED = True
 try:
-    import cellfinder
     import cellfinder_core
 except ImportError:
     _CELLFINDER_INSTALLED = False
