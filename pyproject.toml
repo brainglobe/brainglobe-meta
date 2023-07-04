@@ -51,12 +51,6 @@ dev = [
   "ruff",
   "setuptools_scm",
 ]
-morphapi = [
-
-]
-cellfinder = [
-
-]
 
 [build-system]
 requires = [
