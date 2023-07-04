@@ -1,5 +1,8 @@
 import inspect
 
+import pytest
+from importlib_metadata import PackageNotFoundError
+
 import brainglobe as bg
 
 # Tools that will be exposed in the brainglobe module/namespace
@@ -47,3 +50,8 @@ def test_tool_exposure() -> None:
         assert hasattr(
             bg, "cellfinder_core"
         ), "brainglobe.cellfinder_core is not exposed"
+    else:
+        # cellfinder_core should be aliased to a function
+        # that throws an error when invoked
+        with pytest.raises(PackageNotFoundError):
+            bg.cellfinder_core()
