@@ -1,5 +1,7 @@
 from importlib.metadata import PackageNotFoundError, version
 
+from ._tensorflow_handle import _CELLFINDER_FUNCTIONAL as _CELLFINDER_INSTALLED
+
 try:
     __version__ = version("brainglobe")
 except PackageNotFoundError:
@@ -11,19 +13,22 @@ import bg_atlasapi
 import bg_space
 import brainreg
 import brainreg_segment
-import cellfinder_core
 
-# Determine if optional dependencies were installed,
-# and expose if necessary.
+# Expose tools that may not be present
+# if a conda install was performed
+
 # morphapi
 _MORPHAPI_INSTALLED = True
 try:
     import morphapi
 except ImportError:
     _MORPHAPI_INSTALLED = False
-# cellfinder - not exposed, but still check
-_CELLFINDER_INSTALLED = True
-try:
-    import cellfinder
-except ImportError:
-    _CELLFINDER_INSTALLED = False
+
+# cellfinder and associated packages
+if _CELLFINDER_INSTALLED:
+    import cellfinder_core
+else:
+    # Under the cellfinder_core name,
+    # import an error-throwing function that points users to the
+    # instructions for getting the cellfinder tool working
+    from ._tensorflow_handle import throw_error_on_call as cellfinder_core
