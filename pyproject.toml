@@ -1,42 +1,40 @@
 [project]
 name = "brainglobe"
-authors = [
-  {name = "BrainGlobe", email= "code@adamltyson.com"}
-]
+authors = [{ name = "BrainGlobe", email = "code@adamltyson.com" }]
 description = "Python-based tools for computational neuroanatomy."
 readme = "README.md"
 requires-python = ">=3.8.0"
 dynamic = ["version"]
 
-license = {text = "BSD-3-Clause"}
+license = { text = "BSD-3-Clause" }
 
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Operating System :: OS Independent",
-    "License :: OSI Approved :: BSD License",
+  "Development Status :: 2 - Pre-Alpha",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: BSD License",
 ]
 
 dependencies = [
   "napari[all]",
-  "brainglobe-utils",
   "bg-space>=0.5.0",
-  "cellfinder-core>=0.3",
-  "imio",
+  "brainglobe-utils",
   "bg-atlasapi>=1.0.0",
-  # "bg-atlasgen", [WIP]
-  # "brainglobe-napari", [WIP]
-  "brainglobe-napari-io",
-  "morphapi>=0.1.3.0",
-  "cellfinder-napari",
-  "brainreg-segment>=0.0.2",
   "brainreg",
+  # brainglobe-napari [WIP],
+  "imio",
+  "cellfinder-core>=0.3",
+  "morphapi>=0.1.3.0",
+  "brainglobe-napari-io",
+  # bg-atlasgen [LOCAL ONLY],
+  "brainreg-segment>=0.0.2",
+  "cellfinder-napari",
   "brainreg-napari",
-  "cellfinder"
+  "cellfinder",
 ]
 
 [project.optional-dependencies]
@@ -53,11 +51,7 @@ dev = [
 ]
 
 [build-system]
-requires = [
-    "setuptools>=45",
-    "wheel",
-    "setuptools_scm[toml]>=6.2",
-]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
@@ -88,7 +82,7 @@ ignore = [
 
 [tool.ruff]
 line-length = 79
-exclude = ["__init__.py","build",".eggs"]
+exclude = ["__init__.py", "build", ".eggs"]
 select = ["I", "E", "F"]
 fix = true
 
