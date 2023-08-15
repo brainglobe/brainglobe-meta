@@ -67,6 +67,7 @@ In your desired virtual environment, run
 conda install -c conda-forge brainglobe
 ```
 to install the compatible BrainGlobe tools.
+This will install all BrainGlobe tools that are compatible with your platform and which are currently available via `conda-forge`.
 
 #### **`cellfinder` and `conda-forge`**
 
@@ -75,6 +76,11 @@ However due to an ongoing issue with `tensorflow`'s availability on `conda-forge
 This is because `tensorflow` versions newer than `1.14.0` are not provided via `conda` channels, and `cellfinder-core` (one of the brainglobe tools) requires a version between `2.5.0` and `2.11.1`.
 See [this issue on GitHub for more details](https://github.com/conda-forge/cellfinder-core-feedstock/issues/13).
 Users that want to run `cellfinder` will need to manually install a compatible version of `tensorflow` into their environment, before running the `conda install` command above.
+- Windows users will _have_ to manually install their own version of `tensorflow` if they want to use the `conda-forge` install and the `cellfinder` tools.
+- `conda-forge` _may_ be able to resolve the dependencies automatically for Linux and MacOS users, however we do not guarantee this. In such a case, a manual install of `tensorflow` will be required first.
+
+If using the `conda-forge` install; attempting to `import` any of `cellfinder`, `cellfinder-napari`, or `cellfinder-core` in your Python scripts may throw an error if the issues above cannot be resolved on your platform.
+Similarly, attempting to use `cellfinder`'s CLI functionality will also raise an error.
 
 ---
 

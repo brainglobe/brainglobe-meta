@@ -4,8 +4,6 @@ List of tools that BrianGlobe provides, the corresponding repository in which th
 
 Packages are listed top to bottom based on the number of brainglobe dependencies they posses, IE packages appear earlier in the list if they appear _lower down_ in the BrainGlobe dependency tree.
 
-[`napari`](https://napari.org/stable/) is external to BrainGlobe, but is included in the dependency lists to emphasise BrainGlobe plugins for `napari`.
-
 ![Interdependency graph for BrainGlobe tools](assets/BrainGlobe-dependencies.svg)
 
 ## Repositories
