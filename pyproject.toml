@@ -24,7 +24,7 @@ dependencies = [
   "bg-space>=0.5.0",
   "brainglobe-utils",
   "bg-atlasapi>=1.0.0",
-  "brainreg>=1.0.0",
+  "brainreg[napari]>=1.0.0",
   # brainglobe-napari [WIP],
   "imio",
   "cellfinder-core>=0.3",
