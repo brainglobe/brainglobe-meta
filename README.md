@@ -36,7 +36,7 @@ Currently included packages, and whether they come with the `pip` and `conda-for
 | BrainGlobe Atlas API | &#x2611; | &#x2611; |      `bg_atlasapi`       |   [Site](https://brainglobe.info/documentation/bg-atlasapi/index.html)    |
 |      `bg-space`      | &#x2611; | &#x2611; |        `bg-space`        |     [Site](https://brainglobe.info/documentation/bg-space/index.html)     |
 |      `brainreg`      | &#x2611; | &#x2611; |        `brainreg`        |     [Site](https://brainglobe.info/documentation/brainreg/index.html)     |
-|  `brainreg-segment`  | &#x2611; | &#x2611; |    `brainreg_segment`    | [Site](https://brainglobe.info/documentation/brainreg-segment/index.html) |
+|  `brainglobe-segmentation`  | &#x2611; | &#x2611; |    `brainglobe_segmentation`    | [Site](https://brainglobe.info/documentation/brainglobe-segmentation/index.html) |
 |    `brainrender`     |          |          |                          |   [Site](https://brainglobe.info/documentation/brainrender/index.html)    |
 |     `cellfinder`     | &#x2611; | Pending  |    `cellfinder_core`     |    [Site](https://brainglobe.info/documentation/cellfinder/index.html)    |
 |      `morphapi`      | &#x2611; | Pending  |        `morphapi`        |     [Site](https://brainglobe.info/documentation/morphapi/index.html)     |

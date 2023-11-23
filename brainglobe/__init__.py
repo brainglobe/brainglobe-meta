@@ -12,7 +12,7 @@ except PackageNotFoundError:
 import bg_atlasapi
 import bg_space
 import brainreg
-import brainreg_segment
+import brainglobe_segmentation
 
 # Expose tools that may not be present
 # if a conda install was performed
