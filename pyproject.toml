@@ -3,7 +3,7 @@ name = "brainglobe"
 authors = [{ name = "BrainGlobe", email = "code@adamltyson.com" }]
 description = "Python-based tools for computational neuroanatomy."
 readme = "README.md"
-requires-python = ">=3.8.0"
+requires-python = ">=3.9.0"
 dynamic = ["version"]
 
 license = { text = "BSD-3-Clause" }
