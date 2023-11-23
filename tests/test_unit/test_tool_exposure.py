@@ -10,7 +10,7 @@ EXPOSED_TOOLS = [
     "bg_atlasapi",
     "bg_space",
     "brainreg",
-    "brainreg_segment",
+    "brainglobe_segmentation",
     "cellfinder_core",
 ]
 OPTIONAL_TOOLS = ["morphapi", "cellfinder"]

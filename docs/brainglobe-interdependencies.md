@@ -19,9 +19,8 @@ Packages are listed top to bottom based on the number of brainglobe dependencies
 |       `morphio`        |       https://github.com/brainglobe/morphapi       |       https://pypi.org/project/morphio        |                           See notes                           |
 | `brainglobe-napari-io` | https://github.com/brainglobe/brainglobe-napari-io | https://pypi.org/project/brainglobe-napari-io | https://github.com/conda-forge/brainglobe-napari-io-feedstock |
 |     `bg-atlasgen`      |     https://github.com/brainglobe/bg-atlasgen      |                   See notes                   |                           See notes                           |
-|   `brainreg-segment`   |   https://github.com/brainglobe/brainreg-segment   |   https://pypi.org/project/brainreg-segment   |   https://github.com/conda-forge/brainreg-segment-feedstock   |
+|   `brainglobe-segmentation`   |   https://github.com/brainglobe/brainglobe-segmentation   |   https://pypi.org/project/brainglobe-segmentation   |   https://github.com/conda-forge/brainglobe-segmentation-feedstock   |
 |  `cellfinder-napari`   |  https://github.com/brainglobe/cellfinder-napari   |  https://pypi.org/project/cellfinder-napari   |  https://github.com/conda-forge/cellfinder-napari-feedstock   |
-|   `brainreg-napari`    |   https://github.com/brainglobe/brainreg-napari    |   https://pypi.org/project/brainreg-napari    |   https://github.com/conda-forge/brainreg-napari-feedstock    |
 |      `cellfinder`      |      https://github.com/brainglobe/cellfinder      |      https://pypi.org/project/cellfinder      |                         Not available                         |
 
 
@@ -34,5 +33,3 @@ Packages are listed top to bottom based on the number of brainglobe dependencies
   - [Repository](https://github.com/brainglobe/brainglobe-napari)
   - Napari plugin for [bg-atlasapi](#bg-atlasapi). Note that repository README uses the name "brainglobe" for "bg-atlasapi" due to a historical renaming.
   - Dependencies: `bg-atlasapi`
-- `brainreg`
-  - Has optional `[napari]` dependency which just goes away and installs `brainreg-napari` package.
