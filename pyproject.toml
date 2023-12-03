@@ -49,6 +49,14 @@ dev = [
   "setuptools_scm",
 ]
 
+[project.urls]
+homepage = "https://brainglobe.info"
+bug_tracker = "https://github.com/brainglobe/brainglobe-meta/issues"
+documentation = "https://docs.brainglobe.info"
+source_code = "https://github.com/brainglobe/brainglobe-meta"
+user_support = "https://forum.image.sc/tag/brainglobe"
+twitter = "https://twitter.com/brain_globe"
+
 [build-system]
 requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
