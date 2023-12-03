@@ -1,6 +1,6 @@
 [project]
 name = "brainglobe"
-authors = [{ name = "BrainGlobe", email = "code@adamltyson.com" }]
+authors = [{ name = "BrainGlobe Developers", email = "hello@brainglobe.info" }]
 description = "Python-based tools for computational neuroanatomy."
 readme = "README.md"
 requires-python = ">=3.9.0"
@@ -84,9 +84,3 @@ line-length = 79
 exclude = ["__init__.py", "build", ".eggs"]
 select = ["I", "E", "F"]
 fix = true
-
-[tool.cibuildwheel]
-build = "cp38-* cp39-* cp310-*"
-
-[tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64"]
