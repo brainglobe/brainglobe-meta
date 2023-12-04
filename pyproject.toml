@@ -1,6 +1,6 @@
 [project]
 name = "brainglobe"
-authors = [{ name = "BrainGlobe", email = "code@adamltyson.com" }]
+authors = [{ name = "BrainGlobe Developers", email = "hello@brainglobe.info" }]
 description = "Python-based tools for computational neuroanatomy."
 readme = "README.md"
 requires-python = ">=3.9.0"
@@ -49,6 +49,14 @@ dev = [
   "setuptools_scm",
 ]
 
+[project.urls]
+homepage = "https://brainglobe.info"
+bug_tracker = "https://github.com/brainglobe/brainglobe-meta/issues"
+documentation = "https://docs.brainglobe.info"
+source_code = "https://github.com/brainglobe/brainglobe-meta"
+user_support = "https://forum.image.sc/tag/brainglobe"
+twitter = "https://twitter.com/brain_globe"
+
 [build-system]
 requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
@@ -84,9 +92,3 @@ line-length = 79
 exclude = ["__init__.py", "build", ".eggs"]
 select = ["I", "E", "F"]
 fix = true
-
-[tool.cibuildwheel]
-build = "cp38-* cp39-* cp310-*"
-
-[tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64"]
