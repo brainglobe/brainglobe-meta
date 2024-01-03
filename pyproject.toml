@@ -27,6 +27,7 @@ dependencies = [
   "brainglobe-utils",
   "brainreg[napari]>=1.0.0",
   "brainrender>=2.1.0",
+  "brainrender-napari",
   "cellfinder-core>=0.3",
   "cellfinder-napari",
   "cellfinder",
