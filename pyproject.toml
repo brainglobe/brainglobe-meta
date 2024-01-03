@@ -32,7 +32,6 @@ dependencies = [
   "cellfinder-napari",
   "cellfinder",
   "imio",
-  "morphapi>=0.1.3.0",
   "napari[all]",
   # bg-atlasgen [LOCAL ONLY],
   # brainglobe-napari [WIP],
