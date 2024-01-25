@@ -1,6 +1,6 @@
 import warnings
 from string import ascii_letters, digits
-from typing import ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List
 
 
 class BibTexEntry:
@@ -19,7 +19,7 @@ class BibTexEntry:
         yaml-processed content of CITATION.cff.
     cite_key : str, default = "BrainGlobeReference"
         Citation key to add to the BibTex reference that is generated.
-    suppress_unused: bool, default = True
+    warn_on_not_used: bool, default = False
         If True, warn the user about the fields in the information
         input that are not required nor optional, so are ignored.
 
@@ -78,40 +78,44 @@ class BibTexEntry:
 
     def __init__(
         self,
-        information: Dict[str, str],
+        information: Dict[str, Any],
         cite_key: str = "BrainGlobeReference",
-        suppress_unused: bool = True,
+        warn_on_not_used: bool = False,
     ) -> None:
         """ """
         # Add the citation key if provided,
         # or use the default otherwise
         if self.validate_citation_key(cite_key):
             self.cite_key = cite_key
+        else:
+            raise ValueError(
+                f"Citation key {cite_key} is not valid."
+                " Citation keys may only be composed of"
+                "alphanumeric characters, digits, '_', '-', and ':'"
+            )
 
         # Add all the information we need
         for key, value in information.items():
-            if key in self.required:
-                self.key = value
-            elif key in self.optional:
-                self.key = value
-            elif suppress_unused:
+            if key in self.required or key in self.optional:
+                setattr(self, key, value)
+            elif warn_on_not_used:
                 warnings.warn(
-                    f"Not sure what to do with {key} for entry of type "
-                    f"{self.cite_key}"
+                    f"The key {key} is not used for entries of type "
+                    f"{self.entry_type}",
+                    UserWarning,
                 )
 
         # Check that all required information is populated
         for required_field in self.required:
             if not hasattr(self, required_field):
                 raise KeyError(
-                    f"Entry of type {self.cite_key} did not receive value"
-                    f" for required key: {required_field}"
+                    f"Did not receive value for required key: {required_field}"
                 )
         # Optional fields should be set to None so that checks against
         # them produce nothing and evaluated to False
         for optional_field in self.optional:
             if not hasattr(self, optional_field):
-                self.optional_field = None
+                setattr(self, optional_field, None)
 
         # If we have an author field, we will need to parse the
         # dictionary input into the string that BibTex is expecting
@@ -155,9 +159,9 @@ class BibTexEntry:
             self.author = "and".join(all_authors)
         # Unrecognised read format, abort
         else:
-            raise ValueError(
-                f"Expected authors to be either dict or list of dicts,"
-                f" not {type(self.author)}"
+            raise TypeError(
+                f"Expected author to be either dict or list of dicts,"
+                f" not {type(self.author).__name__}"
             )
         return
 
@@ -190,3 +194,38 @@ class BibTexEntry:
         output_string += "}"
 
         return output_string
+
+
+class Article(BibTexEntry):
+    """
+    Derived BibtexEntry for creating article entries.
+    """
+
+    entry_type = "article"
+    required = ["author", "title", "journal", "year"]
+    optional = [
+        "volume",
+        "number",
+        "pages",
+        "month",
+        "note",
+        "doi",
+        "issn",
+        "zblnumber",
+        "eprint",
+    ]
+    # def __init__(self, *args, **kwargs):
+    #     self.entry_type = "article"
+    #     self.required = ["author", "title", "journal", "year"]
+    #     self.optional = [
+    #         "volume",
+    #         "number",
+    #         "pages",
+    #         "month",
+    #         "note",
+    #         "doi",
+    #         "issn",
+    #         "zblnumber",
+    #         "eprint",
+    #     ]
+    #     super().__init__(*args, **kwargs)
