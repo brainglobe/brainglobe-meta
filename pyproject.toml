@@ -33,6 +33,8 @@ dependencies = [
   "napari[all]",
   # bg-atlasgen [LOCAL ONLY],
   # brainglobe-napari [WIP],
+  # Non-BrainGlobe
+  "pyyaml",
 ]
 
 [project.optional-dependencies]
