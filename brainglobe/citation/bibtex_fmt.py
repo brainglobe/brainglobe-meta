@@ -156,7 +156,7 @@ class BibTexEntry:
                     surname = author_info["family-names"]
                     forename = author_info["given-names"]
                     all_authors.append(f"{forename} {surname}")
-            self.author = "and".join(all_authors)
+            self.author = " and ".join(all_authors)
         # Unrecognised read format, abort
         else:
             raise TypeError(
@@ -165,12 +165,12 @@ class BibTexEntry:
             )
         return
 
-    def write(self) -> str:
+    def generate_ref_string(self) -> str:
         """
-        Write the appropriate reference text,
-        using the populated fields.
+        Generate a string that encodes the reference, in preparation for
+        writing to an output format.
         """
-        output_string = f"@{self.entry_type}{{{self.cite_key},"
+        output_string = f"@{self.entry_type}{{{self.cite_key},\n"
 
         # Tracks current indentation level
         indent_level = 1
@@ -198,7 +198,7 @@ class BibTexEntry:
 
 class Article(BibTexEntry):
     """
-    Derived BibtexEntry for creating article entries.
+    Derived class for writing BibTex references to articles.
     """
 
     entry_type = "article"
@@ -214,18 +214,36 @@ class Article(BibTexEntry):
         "zblnumber",
         "eprint",
     ]
-    # def __init__(self, *args, **kwargs):
-    #     self.entry_type = "article"
-    #     self.required = ["author", "title", "journal", "year"]
-    #     self.optional = [
-    #         "volume",
-    #         "number",
-    #         "pages",
-    #         "month",
-    #         "note",
-    #         "doi",
-    #         "issn",
-    #         "zblnumber",
-    #         "eprint",
-    #     ]
-    #     super().__init__(*args, **kwargs)
+
+
+class Software(BibTexEntry):
+    """
+    Derived class for writing BibTex references to software.
+    """
+
+    entry_type = "software"
+    required = ["author", "title", "url", "year"]
+    optional = [
+        "abstract",
+        "date",
+        "doi",
+        "eprint",
+        "eprintclass",
+        "eprinttype",
+        "file",
+        "hal_id",
+        "hal_version",
+        "institution",
+        "license",
+        "month",
+        "note",
+        "organization",
+        "publisher",
+        "related",
+        "relatedtype",
+        "relatedstring",
+        "repository",
+        "swhid",
+        "urldate",
+        "version",
+    ]
