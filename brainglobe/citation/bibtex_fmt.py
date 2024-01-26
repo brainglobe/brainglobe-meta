@@ -267,26 +267,27 @@ class Software(BibTexEntry):
     ]
 
 
-def supported_entry_types() -> List[BibTexEntry]:
+def supported_entry_types() -> Dict[str, BibTexEntry]:
     """
-    Create a list of all the classes in this module that can be used
+    Create a dict of all the classes in this module that can be used
     to write a bibtex reference of a particular entry type.
 
-    That is, list all classes in this module that are derived from
-    BibTexEntry, but not BibTexEntry itself.
+    keys are the entry type as it will appear in the .tex entry.
+    values are the corresponding derived class to use when writing a
+    reference of that type.
 
     Returns
     -------
-    List[@_BibTexEntry]
-        List of classes derived from BibTexEntry that can handle entry
-        types.
+    Dict[str, @_BibTexEntry]
+        Dict of classes derived from BibTexEntry that can handle entry
+        types, indexed by the entry type they support.
     """
-    list_of_formats = [
-        obj
+    dict_of_formats: Dict[str, BibTexEntry] = {
+        obj.entry_type(): obj
         for name, obj in inspect.getmembers(
             sys.modules[__name__], inspect.isclass
         )
         if name != "BibTexEntry"
-    ]
+    }
 
-    return list_of_formats
+    return dict_of_formats

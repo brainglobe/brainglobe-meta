@@ -208,8 +208,8 @@ def test_supported_entry_types(entry_types_we_support) -> None:
     """
     Check that we support all the entry types that we are expecting to.
     """
-    list_of_classes = supported_entry_types()
-    list_of_entry_types = [t.entry_type() for t in list_of_classes]
+    dict_of_classes = supported_entry_types()
+    list_of_entry_types = sorted(list(dict_of_classes.keys()))
 
     assert sorted(list_of_entry_types) == sorted(entry_types_we_support), (
         "Mismatch between entry types we expect to support, "
