@@ -1,5 +1,7 @@
+import inspect
+import sys
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 import requests
 
@@ -53,6 +55,18 @@ class Repository:
         """
         return alias.lower() in [name.lower() for name in self.tool_aliases]
 
+    def __eq__(self, other: "Repository") -> bool:
+        """
+        Repositories are identical if they point to the same repository.
+        """
+        return self.url == other.url
+
+    def __hash__(self) -> int:
+        """
+        Repositories are hashable by their GitHub url.
+        """
+        return hash(self.url)
+
     def __post_init__(self) -> None:
         """
         Validate the repository actually exists and is reachable,
@@ -79,6 +93,12 @@ class Repository:
             self.tool_aliases.append(self.name)
         return
 
+    def __str__(self) -> str:
+        """
+        Repositories are represented by their GitHub url.
+        """
+        return self.url
+
     def read_citation_info(self) -> Dict[str, Any]:
         """
         Read citation information from the repository into a dictionary.
@@ -90,13 +110,98 @@ class Repository:
         return yaml_str_to_dict(cff_response.text)
 
 
-# Using the above class, we now define the repositories
-# that contain tools that we might want users to be able to
-# cite easily.
+def unique_repositories_from_tools(
+    *tools: str, report_duplicates: bool = False
+) -> Set[Repository]:
+    """
+    Given a list of tool aliases, return a set of the unique repositories
+    that they correspond to.
+
+    Repositories that are referred to by more than one tool in the list
+    provided can be reported by flagging the appropriate input.
+    These duplicates are then removed from the output.
+
+    Parameters
+    ----------
+    tools: str
+        Tool names or aliases whose repositories should be looked up and
+        filtered for duplicates.
+    report_duplicates: bool, default = False
+        If True, a printout will be sent to the console when a repository
+        is referenced more than once in the tool list.
+
+    Returns
+    -------
+    Set[Repository]
+        A set containing the unique repositories that are referenced by the
+        tool list.
+
+    Raises
+    ------
+    RuntimeError
+        If one of the tool names provides does not correspond to one of our
+        (brainglobe) repositories.
+    """
+    unique_repos: Set[Repository] = set()
+
+    # Infer the unique repositories from the list of tools
+    for tool in tools:
+        repo_to_cite: Repository = None
+        for repo in all_citable_repositories():
+            if tool in repo:
+                if repo_to_cite:
+                    # We have already found this alias in another repository,
+                    # Flag error
+                    raise ValueError(
+                        f"Multiple repositories match tool {tool}: "
+                        f"{repo_to_cite.name}, {repo.name}"
+                    )
+                else:
+                    # This is the first repository that might match the tool
+                    repo_to_cite = repo
+        if repo_to_cite is None:
+            # No repository matches this tool, throw error.
+            raise RuntimeError(
+                f"No citable repository found for tool {tool}. "
+                "If you think this option is missing, please report it: "
+                "https://github.com/brainglobe/brainglobe-meta/issues"
+            )
+        elif (repo_to_cite in unique_repos) and report_duplicates:
+            # We already added this repository, so print out a record
+            # of the duplication
+            print(f"{tool} is already being cited by {repo_to_cite.name}")
+        else:
+            # Add first occurrence of the repository to the unique list
+            unique_repos.add(repo_to_cite)
+
+    return unique_repos
+
+
+# Static instances for each of our repositories
+# that we provide citation information for.
 bg_atlasapi = Repository(
     "bg-atlasapi",
-    ["BrainGlobe AtlasAPI", "BrainGlobe AtlasAPI", "AtlasAPI", "Atlas API"],
+    [
+        "bg_atlasapi",
+        "BrainGlobe AtlasAPI",
+        "BrainGlobe AtlasAPI",
+        "AtlasAPI",
+        "Atlas API",
+    ],
     cff_branch="add-citation-file",
 )
 
-REPOSITORIES = [bg_atlasapi]
+
+def all_citable_repositories() -> List[Repository]:
+    """
+    Return a list of all citable brainglobe repositories.
+
+    That is, a list of all static repository instances defined in
+    this submodule.
+    """
+    return set(
+        obj
+        for _, obj in inspect.getmembers(
+            sys.modules[__name__], lambda x: isinstance(x, Repository)
+        )
+    )

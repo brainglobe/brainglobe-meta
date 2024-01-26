@@ -1,8 +1,10 @@
-import importlib
-
 import pytest
 
-from brainglobe.citation.repositories import Repository
+from brainglobe.citation.repositories import (
+    Repository,
+    all_citable_repositories,
+    unique_repositories_from_tools,
+)
 
 
 def test_throw_on_bad_repo() -> None:
@@ -13,21 +15,6 @@ def test_throw_on_bad_repo() -> None:
         ValueError, match="Repository brainglobe/dont-exist does not exist"
     ):
         Repository("dont-exist", ["a", "b", "c"])
-
-
-def test_all_repos_reachable() -> None:
-    """
-    Test that all brainglobe repositories we have created are reachable.
-
-    Due to how Python imports work, importing REPOSITORIES will essentially run
-    repositories.py as a script, and thus will throw the __post_init__ error on
-    validation if any of the repositories have an invalid URL.
-
-    We can achieve this by simply importing the submodule through importlib.
-    """
-    bg_c_r = importlib.import_module("brainglobe.citation.repositories")
-
-    assert hasattr(bg_c_r, "REPOSITORIES")
 
 
 def test_alias_syntax() -> None:
@@ -43,3 +30,31 @@ def test_alias_syntax() -> None:
     assert "brainglobe" in r, "Could not use repository name as tool alias."
     # Not an alias will return false
     assert "not-an-alias" not in r, "Unexpected alias present in class."
+
+
+def test_unique_repos() -> None:
+    """
+    Test the unique_repositories_from_tools function, in the following ways:
+
+    - Duplicate entries are removed
+    - Errors are thrown if the repository does not exist
+    - We can successfully find all of the brainglobe repositories we define.
+    """
+    # Test that duplicates are removed if referred to twice
+    assert (
+        len(unique_repositories_from_tools("bg-atlasapi", "bg_atlasapi")) == 1
+    ), "Duplicates are not removed when asking for unique repositories."
+
+    # Test that non-existent brainglobe repositories raise an error
+    with pytest.raises(
+        RuntimeError,
+        match="No citable repository found for tool future-bg-tool.*",
+    ):
+        unique_repositories_from_tools("future-bg-tool")
+
+    # Test that we actually find all of our repositories, if we ask for them
+    all_our_repositories = all_citable_repositories()
+    our_fetchable_repositories = unique_repositories_from_tools(
+        *[r.name for r in all_our_repositories]
+    )
+    assert all_our_repositories == our_fetchable_repositories

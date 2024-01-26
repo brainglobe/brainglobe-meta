@@ -1,13 +1,15 @@
-from typing import Literal, Set
+from typing import Literal
 from warnings import warn
 
 from brainglobe.citation.bibtex_fmt import supported_entry_types
-from brainglobe.citation.repositories import REPOSITORIES, Repository
+from brainglobe.citation.repositories import (
+    unique_repositories_from_tools,
+)
 
 
 def cite(
     *tools: str,
-    format: Literal["bibtex"] = "bibtex",
+    format: Literal["bibtex", "text"] = "bibtex",
     outfile: str = None,
     cite_software: bool = False,
 ) -> str:
@@ -44,37 +46,9 @@ def cite(
         If the citation data fetched is missing a type specifier, and the
         format requested requires this to be explicitly set.
     """
-    unique_repos: Set[Repository] = set()
-
-    # Infer the unique repositories from the list of tools
-    for tool in tools:
-        repo_to_cite: Repository = None
-        for repo in REPOSITORIES:
-            if tool in repo:
-                if repo:
-                    # We have already found this alias in another repository,
-                    # Flag error
-                    raise ValueError(
-                        f"Multiple repositories match tool {tool}: "
-                        f"{repo_to_cite.name}, {repo.name}"
-                    )
-                else:
-                    # This is the first repository that might match the tool
-                    repo_to_cite = repo
-        if repo_to_cite is None:
-            # No repository matches this tool, throw error.
-            raise ValueError(
-                f"No citable repository found for tool {tool}. "
-                "If you think this option is missing, please report it: "
-                "https://github.com/brainglobe/brainglobe-meta/issues"
-            )
-        elif repo_to_cite in unique_repos:
-            # We already added this repository, so print out a record
-            # of the duplication
-            print(f"{tool} is already being cited by {repo_to_cite.name}")
-        else:
-            # Add first occurrence of the repository to the unique list
-            unique_repos.add(repo_to_cite)
+    unique_repos = unique_repositories_from_tools(
+        *tools, report_duplicates=True
+    )
 
     # unique_repos is now a set of all the repositories that we need to cite
     # so we just need to gather all the citations we need
@@ -94,7 +68,7 @@ def cite(
             )
             citation_type = None
 
-        if format == "sentence":
+        if format == "text":
             # If the user requested the citation sentence,
             # provide this by looking up the expected field.
             raise NotImplementedError
