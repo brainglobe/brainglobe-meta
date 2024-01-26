@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Literal
 from warnings import warn
 
-from brainglobe.citation.bibtex_fmt import supported_entry_types
+from brainglobe.citation.bibtex_fmt import BibTexEntry, supported_entry_types
 from brainglobe.citation.repositories import (
     unique_repositories_from_tools,
 )
@@ -109,7 +109,8 @@ def cite(
                         f"(got {citation_type})"
                     )
 
-                repo_reference = citation_class(citation_info)
+                reference_instance: BibTexEntry = citation_class(citation_info)
+                repo_reference = reference_instance.generate_ref_string()
 
         # Append the reference to the string we are generating
         cite_string += f"{repo_reference}" + "\n" * newline_separations
