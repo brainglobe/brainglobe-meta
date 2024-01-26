@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Literal
 from warnings import warn
 
@@ -10,7 +11,7 @@ from brainglobe.citation.repositories import (
 def cite(
     *tools: str,
     format: Literal["bibtex", "text"] = "bibtex",
-    outfile: str = None,
+    outfile: Path = None,
     cite_software: bool = False,
     newline_separations: int = 2,
 ) -> str:
@@ -95,6 +96,7 @@ def cite(
                 and "preferred-citation" in citation_info.keys()
             ):
                 citation_info = citation_info["preferred-citation"]
+                citation_type = citation_info["type"]
 
             # Cite this repository in the desired format
             if format == "bibtex":
@@ -115,9 +117,31 @@ def cite(
     # Upon looping over each of the repositories, we should be ready to dump
     # the output to the requested location.
     if outfile is not None:
+        # Fix file prefixes if necessary
+        outfile = Path(outfile)
+        extension = infer_prefix(format)
+        if not outfile.suffix == extension:
+            outfile = Path(f"{outfile.stem}.{extension}")
+
+        # Write output to file
         with open(outfile, "w") as output_file:
             output_file.write(cite_string)
     else:
         print(cite_string)
 
     return cite_string
+
+
+def infer_prefix(output_format: Literal["bibtex", "text"]) -> str:
+    """
+    Return the file prefix to be used for the given output format.
+    """
+    if output_format == "bibtex":
+        return "tex"
+    elif output_format == "text":
+        return "txt"
+    else:
+        raise ValueError(
+            "I don't know what extension to "
+            f"give outputs of format {output_format}"
+        )

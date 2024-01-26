@@ -48,7 +48,7 @@ class BibTexEntry:
     indent_character: str = " " * 4
 
     # mypy type-hints
-    author: str | Dict[str, str] | List[Dict[str, str]]
+    authors: str | Dict[str, str] | List[Dict[str, str]]
 
     @classmethod
     def entry_type(cls) -> str:
@@ -137,20 +137,20 @@ class BibTexEntry:
             if not hasattr(self, optional_field):
                 setattr(self, optional_field, None)
 
-        # If we have an author field, we will need to parse the
+        # If we have an authors field, we will need to parse the
         # dictionary input into the string that BibTex is expecting
-        if hasattr(self, "author"):
-            self._prepare_author_field()
+        if hasattr(self, "authors"):
+            self._prepare_authors_field()
 
         return
 
-    def _prepare_author_field(self) -> None:
+    def _prepare_authors_field(self) -> None:
         """
         The authors field may come in as a dict, or a list of dicts.
         This is rather inconvenient as we need it to be a string, so
         convert it with this function.
 
-        author fields in CITATION.cff are:
+        Individual author fields in CITATION.cff are:
         - family-names
         - given-names
         - orcid
@@ -159,29 +159,29 @@ class BibTexEntry:
         or which we only need the names.
         """
         # A single author will be read in as a dictionary
-        if isinstance(self.author, dict):
-            surname = self.author["family-names"]
-            forename = self.author["given-names"]
-            self.author = f"{forename} {surname}"
+        if isinstance(self.authors, dict):
+            surname = self.authors["family-names"]
+            forename = self.authors["given-names"]
+            self.authors = f"{forename} {surname}"
         # Multiple authors will be read in as a list of dictionaries
-        elif isinstance(self.author, list):
+        elif isinstance(self.authors, list):
             all_authors = []
-            for author_info in self.author:
+            for author_info in self.authors:
                 if not isinstance(author_info, dict):
                     raise ValueError(
-                        f"Expected author to be dictionary but it was"
+                        f"Expected authors to be dictionary but it was"
                         f" {type(author_info)}: {author_info}"
                     )
                 else:
                     surname = author_info["family-names"]
                     forename = author_info["given-names"]
                     all_authors.append(f"{forename} {surname}")
-            self.author = " and ".join(all_authors)
+            self.authors = " and ".join(all_authors)
         # Unrecognised read format, abort
         else:
             raise TypeError(
-                f"Expected author to be either dict or list of dicts,"
-                f" not {type(self.author).__name__}"
+                f"Expected authors to be either dict or list of dicts,"
+                f" not {type(self.authors).__name__}"
             )
         return
 
@@ -221,7 +221,7 @@ class Article(BibTexEntry):
     Derived class for writing BibTex references to articles.
     """
 
-    required = ["author", "title", "journal", "year"]
+    required = ["authors", "title", "journal", "year"]
     optional = [
         "volume",
         "number",
@@ -240,7 +240,7 @@ class Software(BibTexEntry):
     Derived class for writing BibTex references to software.
     """
 
-    required = ["author", "title", "url", "year"]
+    required = ["authors", "title", "url", "year"]
     optional = [
         "abstract",
         "date",

@@ -23,7 +23,7 @@ class TestBibtexEntry:
     """
 
     good_info = {
-        "author": [{"given-names": "tester", "family-names": "testing"}],
+        "authors": [{"given-names": "tester", "family-names": "testing"}],
         "title": "testing",
         "journal": "tested",
         "year": 2000,
@@ -44,23 +44,25 @@ class TestBibtexEntry:
         """
         Test that:
         - Not providing a required key results in an error.
-        - Providing an invalid author format raises an error.
+        - Providing an invalid authors format raises an error.
         - Providing a bad citation key raises an error.
         - Providing information with the wrong type field throws an error.
         """
         # Not providing a particular key
         pass_info = self.good_info.copy()
-        pass_info.pop("author", None)
+        pass_info.pop("authors", None)
         with pytest.raises(
-            KeyError, match="Did not receive value for required key: author"
+            KeyError, match="Did not receive value for required key: authors"
         ):
             Article(information=pass_info)
 
-        # Provide an invalid author format
-        pass_info["author"] = "sensible name that's not in the expected format"
+        # Provide an invalid authors format
+        pass_info[
+            "authors"
+        ] = "sensible name that's not in the expected format"
         with pytest.raises(
             TypeError,
-            match="Expected author to be either dict or list of dicts, "
+            match="Expected authors to be either dict or list of dicts, "
             "not str",
         ):
             Article(information=pass_info)
@@ -70,7 +72,7 @@ class TestBibtexEntry:
             Article(information=self.good_info, cite_key="a11g00dt111n0w:(")
 
         # Read into the wrong reference type
-        pass_info["author"] = {
+        pass_info["authors"] = {
             "given-names": "now this",
             "family-names": "is all good",
         }
@@ -124,7 +126,7 @@ class TestBibtexEntry:
         self, author_info: Dict[str, str] | List[Dict[str, str]], expected: str
     ) -> None:
         """
-        Test that author information is parsed correctly when given as either
+        Test that authors information is parsed correctly when given as either
         a single dict, or a list of dicts.
 
         author_info is the information to be passed and processed by
@@ -133,11 +135,11 @@ class TestBibtexEntry:
         returns.
         """
         pass_info = self.good_info.copy()
-        pass_info["author"] = author_info
+        pass_info["authors"] = author_info
 
         article = Article(pass_info, warn_on_not_used=True)
 
-        assert article.author == expected
+        assert article.authors == expected
 
     def test_generate_ref_string(self) -> None:
         """
@@ -170,18 +172,18 @@ class TestBibtexEntry:
         # Intermediary lines are a bit trickier,
         # but they should all be of the form
         # <indent><field> = "<value>"
-        # with the "author" field having a slightly different value
+        # with the "authors" field having a slightly different value
         intermediary_lines = lines_of_text[1:-1]
         potential_fields = article.required + article.optional
 
         for key, value in pass_info.items():
-            if key != "author":
+            if key != "authors":
                 expected_line = f'{article.indent_character}{key} = "{value}",'
             else:
-                # Hard-code expected author pre-processing,
+                # Hard-code expected authors pre-processing,
                 # tested above in test_author_parsing
                 expected_line = (
-                    f'{article.indent_character}author = "tester testing",'
+                    f'{article.indent_character}authors = "tester testing",'
                 )
 
             # Check that this is at least one of the lines,

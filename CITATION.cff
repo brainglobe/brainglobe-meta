@@ -27,3 +27,4 @@ abstract: >-
 license: BSD-3-Clause
 citation-sentence: >-
   'This project makes use of the BrainGlobe tool-suite, https://brainglobe.info/'
+year: 2024
