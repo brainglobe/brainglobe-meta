@@ -2,7 +2,15 @@ from typing import Dict, List
 
 import pytest
 
-from brainglobe.citation.bibtex_fmt import Article
+from brainglobe.citation.bibtex_fmt import Article, supported_entry_types
+
+
+@pytest.fixture()
+def entry_types_we_support() -> List[str]:
+    """
+    All Bibtex entry types that we support for writing BrainGlobe references.
+    """
+    return ["article", "software"]
 
 
 class TestBibtexEntry:
@@ -38,6 +46,7 @@ class TestBibtexEntry:
         - Not providing a required key results in an error.
         - Providing an invalid author format raises an error.
         - Providing a bad citation key raises an error.
+        - Providing information with the wrong type field throws an error.
         """
         # Not providing a particular key
         pass_info = self.good_info.copy()
@@ -59,6 +68,18 @@ class TestBibtexEntry:
         # Provide an invalid citation key
         with pytest.raises(ValueError, match="Citation key .* is not valid."):
             Article(information=self.good_info, cite_key="a11g00dt111n0w:(")
+
+        # Read into the wrong reference type
+        pass_info["author"] = {
+            "given-names": "now this",
+            "family-names": "is all good",
+        }
+        pass_info["type"] = "software"
+        with pytest.raises(
+            AssertionError,
+            match="Attempting to read reference of type software into article",
+        ):
+            Article(information=pass_info)
 
     def test_nothrow_on_missing_optionals(self) -> None:
         """
@@ -126,7 +147,7 @@ class TestBibtexEntry:
         We test on the Article class, but are really only calling methods
         from the base BibtexEntry class.
         """
-        pass_info = self.good_info | self.opt_info
+        pass_info = self.good_info | self.opt_info | {"type": "article"}
         citation_key = "TESTING123"
 
         article = Article(
@@ -181,3 +202,19 @@ class TestBibtexEntry:
                     " when it should have been ignored."
                 )
                 assert expected_line not in intermediary_lines, error_line
+
+
+def test_supported_entry_types(entry_types_we_support) -> None:
+    """
+    Check that we support all the entry types that we are expecting to.
+    """
+    list_of_classes = supported_entry_types()
+    list_of_entry_types = [t.entry_type() for t in list_of_classes]
+
+    assert sorted(list_of_entry_types) == sorted(entry_types_we_support), (
+        "Mismatch between entry types we expect to support, "
+        "and those we actually do.\n"
+        f"Expect to support: {sorted(entry_types_we_support)}"
+        f"Actually supporting: {sorted(list_of_entry_types)}"
+    )
+    return

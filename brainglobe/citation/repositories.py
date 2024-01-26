@@ -9,8 +9,8 @@ from brainglobe.citation.fetch import fetch_from_github, yaml_str_to_dict
 @dataclass
 class Repository:
     """
-    Static class for storing repository information, when needing to
-    fetch CITATION information from files.
+    Static class for representing GitHub repositories, in particular
+    when needing to fetch CITATION information from them.
 
     Parameters
     ----------

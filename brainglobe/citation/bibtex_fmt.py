@@ -1,3 +1,5 @@
+import inspect
+import sys
 import warnings
 from string import ascii_letters, digits
 from typing import Any, ClassVar, Dict, List
@@ -27,8 +29,6 @@ class BibTexEntry:
     ----------
     cite_key : str
         The citation key that appears in the BibTex reference
-    entry_type : ClassVar[str]
-        The BibTex entry type; article, book, software, etc
     required : ClassVar[List[str]]
         Required fields for the entry to be created
     optional : ClassVar[List[str]]
@@ -39,8 +39,6 @@ class BibTexEntry:
 
     # The citation key that appears in the BibTex reference
     cite_key: str
-    # The BibTex entry type; article, book, software, etc
-    entry_type: ClassVar[str]
     # Required fields for the entry to be created
     required: ClassVar[List[str]]
     # Optional fields that the entry may possess
@@ -51,6 +49,13 @@ class BibTexEntry:
 
     # mypy type-hints
     author: str | Dict[str, str] | List[Dict[str, str]]
+
+    @classmethod
+    def entry_type(cls) -> str:
+        """
+        The Bibtex entry type; article, book, software, etc.
+        """
+        return cls.__name__.lower()
 
     @classmethod
     def validate_citation_key(cls, key: str) -> bool:
@@ -83,6 +88,10 @@ class BibTexEntry:
         warn_on_not_used: bool = False,
     ) -> None:
         """ """
+        # So we don't delete information that we may need in other places
+        # (C++ memory sharing rights plz Python)
+        information = information.copy()
+
         # Add the citation key if provided,
         # or use the default otherwise
         if self.validate_citation_key(cite_key):
@@ -94,6 +103,17 @@ class BibTexEntry:
                 "alphanumeric characters, digits, '_', '-', and ':'"
             )
 
+        # If type information is available, ensure that we are reading
+        # into the correct reference type!
+        if "type" in information.keys():
+            assert information["type"] == self.entry_type(), (
+                "Attempting to read reference of type"
+                f" {information['type']} into {self.entry_type()}"
+            )
+            # Remove type field from information dict,
+            # so we don't try to assign it to a field later.
+            information.pop("type")
+
         # Add all the information we need
         for key, value in information.items():
             if key in self.required or key in self.optional:
@@ -101,7 +121,7 @@ class BibTexEntry:
             elif warn_on_not_used:
                 warnings.warn(
                     f"The key {key} is not used for entries of type "
-                    f"{self.entry_type}",
+                    f"{self.entry_type()}",
                     UserWarning,
                 )
 
@@ -170,7 +190,7 @@ class BibTexEntry:
         Generate a string that encodes the reference, in preparation for
         writing to an output format.
         """
-        output_string = f"@{self.entry_type}{{{self.cite_key},\n"
+        output_string = f"@{self.entry_type()}{{{self.cite_key},\n"
 
         # Tracks current indentation level
         indent_level = 1
@@ -201,7 +221,6 @@ class Article(BibTexEntry):
     Derived class for writing BibTex references to articles.
     """
 
-    entry_type = "article"
     required = ["author", "title", "journal", "year"]
     optional = [
         "volume",
@@ -221,7 +240,6 @@ class Software(BibTexEntry):
     Derived class for writing BibTex references to software.
     """
 
-    entry_type = "software"
     required = ["author", "title", "url", "year"]
     optional = [
         "abstract",
@@ -247,3 +265,28 @@ class Software(BibTexEntry):
         "urldate",
         "version",
     ]
+
+
+def supported_entry_types() -> List[BibTexEntry]:
+    """
+    Create a list of all the classes in this module that can be used
+    to write a bibtex reference of a particular entry type.
+
+    That is, list all classes in this module that are derived from
+    BibTexEntry, but not BibTexEntry itself.
+
+    Returns
+    -------
+    List[@_BibTexEntry]
+        List of classes derived from BibTexEntry that can handle entry
+        types.
+    """
+    list_of_formats = [
+        obj
+        for name, obj in inspect.getmembers(
+            sys.modules[__name__], inspect.isclass
+        )
+        if name != "BibTexEntry"
+    ]
+
+    return list_of_formats
