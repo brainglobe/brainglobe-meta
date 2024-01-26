@@ -190,6 +190,18 @@ bg_atlasapi = Repository(
     ],
     cff_branch="add-citation-file",
 )
+brainglobe_meta = Repository(
+    "brainglobe-meta",
+    [
+        "brainglobe",
+        "meta-package",
+        "meta package",
+        "meta",
+        "toolsuite",
+        "tool suite",
+    ],
+    cff_branch="add-citation-function",
+)
 
 
 def all_citable_repositories() -> List[Repository]:

@@ -12,6 +12,7 @@ def cite(
     format: Literal["bibtex", "text"] = "bibtex",
     outfile: str = None,
     cite_software: bool = False,
+    newline_separations: int = 2,
 ) -> str:
     """
     Provide citation(s) for the BrainGlobe tool(s) that the user has supplied.
@@ -34,6 +35,9 @@ def cite(
         or journal counterparts, where present in repositories.
         Use if you want to reference the source code of a particular tool,
         rather than acknowledge use of the tool itself.
+    newline_separations: int, default = 2
+        Number of newline characters to use when separating references, in the
+        event that multiple tools are to be cited.
 
     Returns
     -------
@@ -68,6 +72,10 @@ def cite(
             )
             citation_type = None
 
+        # The repo_reference variable will contain the reference string
+        repo_reference: str = None
+
+        # Determine citation format in preparation for writing
         if format == "text":
             # If the user requested the citation sentence,
             # provide this by looking up the expected field.
@@ -101,7 +109,8 @@ def cite(
 
                 repo_reference = citation_class(citation_info)
 
-                cite_string += f"{repo_reference}\n\n"
+        # Append the reference to the string we are generating
+        cite_string += f"{repo_reference}" + "\n" * newline_separations
 
     # Upon looping over each of the repositories, we should be ready to dump
     # the output to the requested location.
