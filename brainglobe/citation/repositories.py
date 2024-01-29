@@ -67,6 +67,12 @@ class Repository:
         """
         return hash(self.url)
 
+    def __lt__(self, other: "Repository") -> bool:
+        """
+        Repositories are compared by name, alphabetically.
+        """
+        return self.name < other.name
+
     def __post_init__(self) -> None:
         """
         Validate the repository actually exists and is reachable,

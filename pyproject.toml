@@ -37,6 +37,9 @@ dependencies = [
   "pyyaml",
 ]
 
+[project.scripts]
+cite-brainglobe = "brainglobe.citation.cite:cli"
+
 [project.optional-dependencies]
 dev = [
   "pytest",

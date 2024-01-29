@@ -130,3 +130,13 @@ class Format:
                 f" not {type(self.authors).__name__}"
             )
         return
+
+    def generate_ref_string(self) -> str:
+        """
+        Generate the citation text from the information provided,
+        in the given format.
+
+        This method will be overwritten by the derived class that
+        manages the format.
+        """
+        pass
