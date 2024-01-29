@@ -26,6 +26,7 @@ def cite(
     outfile: Path = None,
     cite_software: bool = False,
     newline_separations: int = 2,
+    warn_on_unused_info: bool = False,
 ) -> str:
     """
     Provide citation(s) for the BrainGlobe tool(s) that the user has supplied.
@@ -50,6 +51,9 @@ def cite(
     newline_separations: int, default = 2
         Number of newline characters to use when separating references, in the
         event that multiple tools are to be cited.
+    warn_on_unused_info: bool, default = False
+        If True, information parsed from the yaml-content that is not used by
+        the citation format will be flagged to the user on output.
 
     Returns
     -------
@@ -111,7 +115,7 @@ def cite(
             # If the user requested the citation sentence,
             # provide this by looking up the expected field.
             reference_instance = TextCitation(
-                citation_info, warn_on_not_used=True
+                citation_info, warn_on_not_used=warn_on_unused_info
             )
         else:
             # We need to convert the citation information to
@@ -133,7 +137,7 @@ def cite(
                 reference_instance: BibTexEntry = citation_class(
                     citation_info,
                     cite_key=f"{repo.name}",
-                    warn_on_not_used=True,
+                    warn_on_not_used=warn_on_unused_info,
                 )
 
         # Append the reference to the string we are generating
@@ -147,7 +151,7 @@ def cite(
         with open(Path(outfile), "w") as output_file:
             output_file.write(cite_string)
     else:
-        print(cite_string)
+        sys.stdout.write(cite_string)
 
     return cite_string
 
@@ -180,9 +184,17 @@ def cli() -> None:
         help="List citable BrainGlobe tools, and formats, then exit.",
     )
     parser.add_argument(
-        "-s, --software-citations",
+        "-s",
+        "--software-citations",
         action="store_true",
         help="Explicitly cite software source code over academic papers.",
+    )
+    parser.add_argument(
+        "-w",
+        "--warn-unused",
+        action="store_true",
+        help="Print out when citation information is omitted by "
+        "the chosen citation format.",
     )
     parser.add_argument(
         "-o",
@@ -197,12 +209,15 @@ def cli() -> None:
         "--format",
         nargs=1,
         type=str,
+        default=None,
         help="Citation format to write. "
-        "Will overwrite the inferred format if the output file "
+        "Will be overwritten by the inferred format if the output file "
         "argument is also provided. "
         "Valid formats can be listed with the -l, --list option.",
     )
-    parser.add_argument("tools", nargs="+")
+    parser.add_argument(
+        "tools", nargs="*", type=str, help="BrainGlobe tools to be cited."
+    )
 
     arguments = parser.parse_args()
 
@@ -223,37 +238,57 @@ def cli() -> None:
         # Terminate
         sys.exit(0)
 
-    # Pass default values if available
-    fmt = "bibtex"
-    output_file = None
+    # Exit if no tools were requested
+    tools_to_cite = arguments.tools
+    if not tools_to_cite:
+        sys.stderr.write(
+            "No tools provided for citation! See usage syntax below:\n"
+        )
+        parser.print_help()
+        sys.exit(1)
 
-    # Check for custom options from CLI
-    if hasattr(arguments, "format"):
-        fmt = arguments.format
-        if fmt not in FORMAT_TO_EXTENSION:
+    # Pass default values if available - FIX LOGIC HERE!
+    fmt = getattr(arguments, "format")
+    output_file = getattr(arguments, "output_file")
+    extension = None
+
+    if output_file is None:
+        # With no output file, we cannot infer the format from it.
+        # So either use the one that was provided if it is supported,
+        # or use the default if it was also omitted
+        if fmt is not None and fmt not in FORMAT_TO_EXTENSION:
             raise RuntimeError(f"Output format {fmt} is not supported.")
-
-    if hasattr(arguments, "output_file"):
-        output_file = Path(arguments.output_file)
+        elif fmt is None:
+            # Use default value as this argument was also not provided
+            fmt = "bibtex"
+    else:
+        # Output file provided - resolve path based on OS.
+        output_file = Path(output_file)
         extension = output_file.suffix
 
-        # Output file was provided, attempt to infer format from this
-        # if not provided explicitly
-        if fmt is None:
-            if extension in EXTENSION_TO_FORMAT:
-                fmt = EXTENSION_TO_FORMAT[extension]
-            else:
-                # Output file has an unknown extension, but the user has
-                # not requested a particular format to overwrite this with.
-                raise RuntimeError(
-                    f"Citation file format {extension} is not supported."
-                )
+        # If there was an extension, then infer the format.
+        # This will overwrite the fmt argument.
+        if extension in EXTENSION_TO_FORMAT:
+            fmt = EXTENSION_TO_FORMAT[extension]
+        elif not extension and fmt is None:
+            # No extension provided, and no format for the citation provided.
+            # Throw error.
+            raise RuntimeError(
+                "You have not provided a file extension nor citation format "
+                "to write. You must provide one of these."
+            )
+        else:
+            # This is an extension that we don't support
+            raise RuntimeError(
+                f"brainglobe-cite does not support writing {extension} files."
+            )
 
     # Invoke API function
     cite(
-        *arguments.tools,
+        *tools_to_cite,
         format=fmt,
         outfile=output_file,
         cite_software=arguments.software_citations,
+        warn_on_unused_info=arguments.warn_unused,
     )
     sys.exit(0)
