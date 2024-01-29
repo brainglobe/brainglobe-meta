@@ -63,7 +63,7 @@ class Format:
         # Add all the information we need
         for key, value in information.items():
             if key in self.required or key in self.optional:
-                setattr(self, key, value)
+                setattr(self, key.replace("-", "_"), value)
             elif warn_on_not_used:
                 warnings.warn(
                     f"The key {key} is not used for entries of type "
@@ -80,8 +80,8 @@ class Format:
         # Optional fields should be set to None so that checks against
         # them produce nothing and evaluated to False
         for optional_field in self.optional:
-            if not hasattr(self, optional_field):
-                setattr(self, optional_field, None)
+            if not hasattr(self, optional_field.replace("-", "_")):
+                setattr(self, optional_field.replace("-", "_"), None)
 
         # If we have an authors field, we will need to parse the
         # dictionary input into the string that BibTex is expecting
