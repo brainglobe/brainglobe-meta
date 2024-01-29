@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import pytest
 
@@ -117,7 +117,9 @@ class TestFormat:
         ],
     )
     def test_author_parsing(
-        self, author_info: Dict[str, str] | List[Dict[str, str]], expected: str
+        self,
+        author_info: Union[Dict[str, str], List[Dict[str, str]]],
+        expected: str,
     ) -> None:
         """
         Test that authors information is parsed correctly when given as either

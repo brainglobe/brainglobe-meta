@@ -1,5 +1,5 @@
 import warnings
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Union
 
 
 class Format:
@@ -39,7 +39,7 @@ class Format:
     optional: ClassVar[List[str]]
 
     # mypy type-hints
-    authors: str | Dict[str, str] | List[Dict[str, str]]
+    authors: Union[str, Dict[str, str], List[Dict[str, str]]]
 
     @classmethod
     def entry_type(cls) -> str:
