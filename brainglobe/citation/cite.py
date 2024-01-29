@@ -14,6 +14,11 @@ from brainglobe.citation.repositories import (
 )
 from brainglobe.citation.text_fmt import TextCitation
 
+FORMAT_TO_EXTENSION = {"bibtex": "tex", "text": "txt"}
+EXTENSION_TO_FORMAT = {
+    value: key for key, value in FORMAT_TO_EXTENSION.items()
+}
+
 
 def cite(
     *tools: str,
@@ -37,7 +42,6 @@ def cite(
     outfile: str, default = None
         The output file to write to, if provided.
         If None, reference text will be printed to the console.
-        File prefixes will be automatically appended if not present.
     cite_software: bool, default = False
         If True, software citations will be preferred over the article
         or journal counterparts, where present in repositories.
@@ -139,54 +143,13 @@ def cite(
     # Upon looping over each of the repositories, we should be ready to dump
     # the output to the requested location.
     if outfile is not None:
-        # Fix file prefixes if necessary
-        outfile = Path(outfile)
-        extension = infer_prefix(format)
-        if not outfile.suffix == extension:
-            outfile = Path(f"{outfile.stem}.{extension}")
-
         # Write output to file
-        with open(outfile, "w") as output_file:
+        with open(Path(outfile), "w") as output_file:
             output_file.write(cite_string)
     else:
-        sys.stdout.write(cite_string)
+        print(cite_string)
 
     return cite_string
-
-
-def infer_format(requested_extension: Literal["tex", "txt"]) -> str:
-    """
-    Return the citation format to write given the prefix of the output
-    file.
-
-    This is the inverse of infer_prefix.
-    """
-    if requested_extension == "tex":
-        return "bibtex"
-    elif requested_extension == "txt":
-        return "text"
-    else:
-        raise ValueError(
-            "Cannot infer citation format from "
-            f"extension {requested_extension}."
-        )
-
-
-def infer_prefix(output_format: Literal["bibtex", "text"]) -> str:
-    """
-    Return the file prefix to be used for the given output format.
-
-    This is the inverse of infer_format.
-    """
-    if output_format == "bibtex":
-        return "tex"
-    elif output_format == "text":
-        return "txt"
-    else:
-        raise ValueError(
-            "I don't know what extension to "
-            f"give outputs of format {output_format}"
-        )
 
 
 class BrainGlobeParser(ArgumentParser):
@@ -267,11 +230,8 @@ def cli() -> None:
     # Check for custom options from CLI
     if hasattr(arguments, "format"):
         fmt = arguments.format
-        try:
-            infer_prefix(fmt)
-        except ValueError as e:
-            # This output format is not supported!
-            raise RuntimeError(f"Output format {fmt} is not supported.") from e
+        if fmt not in FORMAT_TO_EXTENSION:
+            raise RuntimeError(f"Output format {fmt} is not supported.")
 
     if hasattr(arguments, "output_file"):
         output_file = Path(arguments.output_file)
@@ -280,14 +240,14 @@ def cli() -> None:
         # Output file was provided, attempt to infer format from this
         # if not provided explicitly
         if fmt is None:
-            try:
-                fmt = infer_format(extension)
-            except ValueError as e:
+            if extension in EXTENSION_TO_FORMAT:
+                fmt = EXTENSION_TO_FORMAT[extension]
+            else:
                 # Output file has an unknown extension, but the user has
-                # not requested a particular format.
+                # not requested a particular format to overwrite this with.
                 raise RuntimeError(
                     f"Citation file format {extension} is not supported."
-                ) from e
+                )
 
     # Invoke API function
     cite(
