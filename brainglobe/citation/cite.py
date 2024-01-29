@@ -2,7 +2,10 @@ from pathlib import Path
 from typing import Literal
 from warnings import warn
 
-from brainglobe.citation.bibtex_fmt import BibTexEntry, supported_entry_types
+from brainglobe.citation.bibtex_fmt import (
+    BibTexEntry,
+    supported_bibtex_entry_types,
+)
 from brainglobe.citation.repositories import (
     unique_repositories_from_tools,
 )
@@ -101,7 +104,9 @@ def cite(
             # Cite this repository in the desired format
             if format == "bibtex":
                 try:
-                    citation_class = supported_entry_types()[citation_type]
+                    citation_class = supported_bibtex_entry_types()[
+                        citation_type
+                    ]
                 except KeyError:
                     raise ValueError(
                         f"Bibtex entries require a supported Bibtex entry type"
