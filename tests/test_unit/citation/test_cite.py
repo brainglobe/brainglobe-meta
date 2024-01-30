@@ -62,15 +62,13 @@ def test_output_file_created(
 
     # Take stock of all files in the temporary directory write now
     all_files_present = [
-        Path(f).relative_to(tmp_dir)
-        for f in glob(f"{str(tmp_dir)}/*", root_dir=tmp_path)
+        Path(f).relative_to(tmp_dir) for f in glob(f"{str(tmp_dir)}/*")
     ]
     # Run cite() and ask for an output file as above
     cite("brainglobe", format="bibtex", outfile=output_file)
     # Assert that the citation file has appeared
     all_files_present_post = [
-        Path(f).relative_to(tmp_dir)
-        for f in glob(f"{str(tmp_dir)}/*", root_dir=tmp_path)
+        Path(f).relative_to(tmp_dir) for f in glob(f"{str(tmp_dir)}/*")
     ]
 
     # Assert the new file has been created
