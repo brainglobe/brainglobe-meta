@@ -114,7 +114,7 @@ class Format:
             all_authors = []
             for author_info in self.authors:
                 if not isinstance(author_info, dict):
-                    raise ValueError(
+                    raise TypeError(
                         "Expected individual author entry to be "
                         "a dictionary, but it was "
                         f"{type(author_info).__name__}: {author_info}"
