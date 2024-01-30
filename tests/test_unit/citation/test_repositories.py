@@ -17,6 +17,34 @@ def test_throw_on_bad_repo() -> None:
         Repository("dont-exist", ["a", "b", "c"])
 
 
+def test_repository_basics() -> None:
+    """
+    Test the following features of the Repository class:
+
+    - Repository urls are constructed correctly
+    - The equality comparison (by the repo url)
+    - The less-than comparison (by repo name)
+    """
+    BrainGlobe = Repository("BrainGlobe", [])
+    bg_atlasapi = Repository("bg-atlasapi", [])
+
+    # URL construction
+    assert BrainGlobe.url == "https://github.com/brainglobe/BrainGlobe"
+
+    # Equality comparison
+    assert (
+        BrainGlobe != bg_atlasapi
+    ), "Different repositories are deemed equal!"
+    assert (
+        BrainGlobe == BrainGlobe
+    ), "Identical repositories are deemed unequal!"
+
+    # Less-than and ordering (alphabetical by Python)
+    assert (
+        BrainGlobe < bg_atlasapi
+    ), "Repository comparison does not assert alphabetical order by name"
+
+
 def test_alias_syntax() -> None:
     """
     Test that the in keyword behaves as expected for determining if a
@@ -42,7 +70,12 @@ def test_unique_repos() -> None:
     """
     # Test that duplicates are removed if referred to twice
     assert (
-        len(unique_repositories_from_tools("bg-atlasapi", "bg_atlasapi")) == 1
+        len(
+            unique_repositories_from_tools(
+                "bg-atlasapi", "bg_atlasapi", report_duplicates=True
+            )
+        )
+        == 1
     ), "Duplicates are not removed when asking for unique repositories."
 
     # Test that non-existent brainglobe repositories raise an error
