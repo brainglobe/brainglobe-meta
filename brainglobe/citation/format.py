@@ -115,8 +115,9 @@ class Format:
             for author_info in self.authors:
                 if not isinstance(author_info, dict):
                     raise ValueError(
-                        f"Expected authors to be dictionary but it was"
-                        f" {type(author_info)}: {author_info}"
+                        "Expected individual author entry to be "
+                        "a dictionary, but it was "
+                        f"{type(author_info).__name__}: {author_info}"
                     )
                 else:
                     surname = author_info["family-names"]

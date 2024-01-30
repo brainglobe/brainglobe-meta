@@ -61,6 +61,19 @@ class TestFormat:
         ):
             Article(information=pass_info)
 
+        # Provide a list of invalid author formats
+        pass_info["authors"] = [
+            "sensible list",
+            "of authors that",
+            "isn't a bunch of dicts",
+        ]
+        with pytest.raises(
+            TypeError,
+            match="Expected individual author entry to be a dictionary, "
+            "but it was str: .*",
+        ):
+            Article(information=pass_info)
+
         # Provide an invalid citation key
         with pytest.raises(ValueError, match="Citation key .* is not valid."):
             Article(information=self.good_info, cite_key="a11g00dt111n0w:(")
