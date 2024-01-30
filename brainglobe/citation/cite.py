@@ -199,7 +199,6 @@ def cli() -> None:
     parser.add_argument(
         "-o",
         "--output-file",
-        nargs=1,
         type=str,
         default=None,
         help="Output file to write citations to.",
@@ -207,7 +206,6 @@ def cli() -> None:
     parser.add_argument(
         "-f",
         "--format",
-        nargs=1,
         type=str,
         default=None,
         help="Citation format to write. "
@@ -247,7 +245,7 @@ def cli() -> None:
         parser.print_help()
         sys.exit(1)
 
-    # Pass default values if available - FIX LOGIC HERE!
+    # Pass default values if available
     fmt = getattr(arguments, "format")
     output_file = getattr(arguments, "output_file")
     extension = None
@@ -270,13 +268,20 @@ def cli() -> None:
         # This will overwrite the fmt argument.
         if extension in EXTENSION_TO_FORMAT:
             fmt = EXTENSION_TO_FORMAT[extension]
-        elif not extension and fmt is None:
-            # No extension provided, and no format for the citation provided.
-            # Throw error.
-            raise RuntimeError(
-                "You have not provided a file extension nor citation format "
-                "to write. You must provide one of these."
-            )
+        elif not extension:
+            if fmt is None:
+                # No extension provided, and no format for the citation
+                # provided. Throw error.
+                raise RuntimeError(
+                    "You have not provided a file extension nor citation "
+                    "format to write. You must provide one of these."
+                )
+            elif fmt not in FORMAT_TO_EXTENSION:
+                # Format must be supported to allow writing
+                raise RuntimeError(
+                    f"{fmt} format is not supported, and your output file "
+                    "does not provide an implicit format."
+                )
         else:
             # This is an extension that we don't support
             raise RuntimeError(
