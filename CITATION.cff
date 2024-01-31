@@ -1,0 +1,30 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: BrainGlobe
+message: >-
+  You can use the brainglobe.cite() function to generate
+  citations for the BrainGlobe tools you use in your
+  research.
+type: software
+authors:
+  - given-names: BrainGlobe
+    family-names: Developers
+    affiliation: 'Sainsbury Wellcome Centre, University College London'
+    email: hello@brainglobe.info
+  - given-names: Wiliam Michael
+    family-names: Graham
+    email: william.graham@ucl.ac.uk
+    affiliation: 'Advanced Research Computing, University College London'
+    orcid: 'https://orcid.org/0000-0003-0058-263X'
+repository-code: 'https://github.com/brainglobe/brainglobe-meta'
+url: 'https://brainglobe.info/'
+abstract: >-
+  The BrainGlobe Initiative exists to facilitate the
+  development of interoperable Python-based tools for
+  computational neuroanatomy.
+license: BSD-3-Clause
+citation-sentence: >-
+  'This project makes use of the BrainGlobe tool-suite, https://brainglobe.info/'
+year: 2024
