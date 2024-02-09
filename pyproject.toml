@@ -22,14 +22,13 @@ dependencies = [
   "bg-atlasapi>=1.0.3,<2",
   "brainglobe-heatmap>=0.5.2,<1",
   "brainglobe-napari-io>=0.3.3,<1",
-  "brainglobe-segmentation>=1.2.0,<2",
+  "brainglobe-segmentation>=1.2.0,<2", # TO CHANGE!
   "brainglobe-space>=1.0.0,<2",
-  "brainglobe-utils>=0.3.3,<1",
-  "brainreg[napari]>=1.0.4,<2",
+  "brainglobe-utils>=0.4.0,<1",
+  "brainreg[napari]>=1.0.4,<2",        # TO CHANGE!
   "brainrender-napari>=0.0.2,<1",
   "brainrender>=2.1.5,<3",
   "cellfinder[napari]>=1.1.0,<2",
-  "imio>=0.3.0,<1",
   "napari[all]",
   # bg-atlasgen [LOCAL ONLY],
   # brainglobe-napari [WIP],
