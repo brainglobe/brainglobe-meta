@@ -69,7 +69,7 @@ exclude = ["tests*"]
 addopts = "--cov=brainglobe"
 
 [tool.black]
-target-version = ['py38', 'py39', 'py310']
+target-version = ['py39', 'py310']
 skip-string-normalization = false
 line-length = 79
 
@@ -93,14 +93,13 @@ fix = true
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{39,310,311}
+envlist = py{39,310}
 isolated_build = True
 
 [gh-actions]
 python =
     3.9: py39
     3.10: py310
-    3.11: py311
 
 [testenv]
 extras =
