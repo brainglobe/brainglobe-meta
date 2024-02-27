@@ -27,10 +27,9 @@ dependencies = [
   "brainglobe-utils>=0.4.1,<1",
   "brainreg[napari]>=1.0.6,<2",
   "brainrender-napari>=0.0.3,<1",
-  "brainrender>=2.1.5,<3",             #TODO: Bump version for atlasapi-fix
+  "brainrender>=2.1.6,<3",
   "cellfinder[napari]>=1.1.1,<2",
   "napari[all]",
-  # bg-atlasgen [LOCAL ONLY],
   # brainglobe-napari [WIP],
 ]
 
