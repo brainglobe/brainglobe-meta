@@ -3,7 +3,7 @@ name = "brainglobe"
 authors = [{ name = "BrainGlobe Developers", email = "hello@brainglobe.info" }]
 description = "Python-based tools for computational neuroanatomy."
 readme = "README.md"
-requires-python = ">=3.9.0"
+requires-python = ">=3.10.0"
 dynamic = ["version"]
 
 license = { text = "BSD-3-Clause" }
@@ -12,9 +12,9 @@ classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Operating System :: OS Independent",
   "License :: OSI Approved :: BSD License",
 ]
@@ -70,7 +70,7 @@ exclude = ["tests*"]
 addopts = "--cov=brainglobe"
 
 [tool.black]
-target-version = ['py39', 'py310', 'py311']
+target-version = ['py310', 'py311', 'py312']
 skip-string-normalization = false
 line-length = 79
 
@@ -99,9 +99,9 @@ isolated_build = True
 
 [gh-actions]
 python =
-    3.9: py39
     3.10: py310
     3.11: py311
+    3.12: py312
 
 [testenv]
 extras =
