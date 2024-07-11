@@ -27,10 +27,8 @@ and to update,
 pip install brainglobe --update
 ```
 
-## Contributing
-
-**Contributors to BrainGlobe are absolutely encouraged**, whether to fix a bug, develop a new feature, or add a new atlas.
-If you would like to contribute, please take a look at our [developer documentation](https://brainglobe.info/developers/index.html).
+## Seeking help or contributing
+We are always happy to help users of our tools, and welcome any contributions. If you would like to get in contact with us for any reason, please see the [contact page of our website](https://brainglobe.info/contact.html).
 
 ---
 
