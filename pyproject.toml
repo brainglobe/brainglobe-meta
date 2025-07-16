@@ -30,7 +30,7 @@ dependencies = [
   "brainrender-napari>=0.0.7,<1",
   "brainrender>=2.1.17,<3",
   "cellfinder[napari]>=1.6.0,<2",
-  "napari[all]",
+  "napari[all]>=0.6.1",
 ]
 
 [project.optional-dependencies]
