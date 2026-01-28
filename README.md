@@ -1,6 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/brainglobe.svg)](https://badge.fury.io/py/brainglobe)
 [![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fbrainglobe.info)](https://brainglobe.info)
-[![Twitter](https://img.shields.io/twitter/follow/brain_globe?style=social)](https://twitter.com/brain_globe)
 
 [![Brainglobe logo](https://brainglobe.info/_static/brainglobe.png)](https://brainglobe.info)
 
