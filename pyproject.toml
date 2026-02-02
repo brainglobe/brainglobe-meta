@@ -29,7 +29,7 @@ dependencies = [
   "brainreg[napari]>=1.0.11,<2",
   "brainrender-napari>=0.0.7,<1",
   "brainrender>=2.1.17,<3",
-  "cellfinder[napari]>=1.8.0,<2",
+  "cellfinder[napari]>=1.9.0,<2",
   "napari[all]>=0.6.1",
 ]
 
