@@ -1,7 +1,14 @@
-[![PyPI version](https://badge.fury.io/py/brainglobe.svg)](https://badge.fury.io/py/brainglobe)
-[![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fbrainglobe.info)](https://brainglobe.info)
-
-[![Brainglobe logo](https://brainglobe.info/_static/brainglobe.png)](https://brainglobe.info)
+[![Docs](https://img.shields.io/badge/Docs-brainglobe--meta-blue)](https://brainglobe.info/documentation/index.html#individual-tool-documentation/index.html)
+[![Get in Touch](https://img.shields.io/badge/Get%20in%20Touch-BrainGlobe-blue)](https://brainglobe.info/contact.html)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Tests](https://github.com/AlgoFoe/brainglobe-meta/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/AlgoFoe/brainglobe-meta/actions/workflows/test_and_deploy.yml)
+[![Codecov](https://codecov.io/gh/AlgoFoe/brainglobe-meta/graph/badge.svg)](https://codecov.io/gh/AlgoFoe/brainglobe-meta)
+[![Python Version](https://img.shields.io/pypi/pyversions/brainglobe-meta.svg)](https://pypi.org/project/brainglobe-meta)
+[![PyPI](https://img.shields.io/pypi/v/brainglobe-meta.svg)](https://pypi.org/project/brainglobe-meta)
+[![Downloads](https://static.pepy.tech/badge/brainglobe-meta)](https://pepy.tech/project/brainglobe-meta)
+[![Code Style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/format.json)](https://github.com/astral-sh/ruff)
+[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-green?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-green.svg)](https://brainglobe.info/community/developers/index.html)
 
 # BrainGlobe
 
